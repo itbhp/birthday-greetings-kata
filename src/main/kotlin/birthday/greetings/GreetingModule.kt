@@ -16,17 +16,18 @@ data class Employee(
   val email: String
 )
 
-private val dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
+private val dateTimeFormatter =
+  DateTimeFormatter.ofPattern("yyyy/MM/dd")
 
 fun sendGreetings(fileName: String, birthDate: String, smptHost: String, smtpPort: Int) {
-  File(object {}.javaClass.getResource("/$fileName").toURI())
+  File(object {}.javaClass.getResource("/$fileName")?.toURI())
     .readLines()
     .drop(1)
-    .map {  csvLine ->
+    .map { csvLine ->
       val (surname, name, dateAsString, email) = csvLine.split(", ")
       Employee(name, surname, LocalDate.parse(dateAsString, dateTimeFormatter), email)
     }
-    .filter { e -> e.dateOfBirth.isEqual(LocalDate.parse(birthDate, dateTimeFormatter))  }
+    .filter { e -> e.dateOfBirth.isEqual(LocalDate.parse(birthDate, dateTimeFormatter)) }
     .forEach {
       System.setProperty("mail.smtp.host", smptHost)
       System.setProperty("mail.smtp.port", smtpPort.toString())
