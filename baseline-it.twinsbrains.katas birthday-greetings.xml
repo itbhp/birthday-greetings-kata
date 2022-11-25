@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>DestructuringDeclarationWithTooManyEntries:GreetingModule.kt$val (surname, name, dateAsString, email) = csvLine.split(", ")</ID>
+    <ID>MatchingDeclarationName:GreetingModule.kt$Employee</ID>
+  </CurrentIssues>
+</SmellBaseline>
