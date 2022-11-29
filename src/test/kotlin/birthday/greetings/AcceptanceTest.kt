@@ -5,10 +5,10 @@ import com.icegreen.greenmail.util.ServerSetup
 import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import javax.mail.Address
 import javax.mail.Message
 import javax.mail.internet.MimeMessage
@@ -18,14 +18,14 @@ private const val NONSTANDARD_PORT = 9999
 class AcceptanceTest {
   private lateinit var mailServer: GreenMail
 
-  @Before
+  @BeforeEach
   fun setUp() {
     mailServer = GreenMail(ServerSetup(NONSTANDARD_PORT, null, "smtp"))
 
     mailServer.start()
   }
 
-  @After
+  @AfterEach
   fun tearDown() {
     mailServer.stop()
     Thread.sleep(200)
@@ -42,7 +42,7 @@ class AcceptanceTest {
 
     val messages: Array<MimeMessage> = mailServer.receivedMessages
 
-    assertEquals("message not sent?", 1, messages.size)
+    assertEquals(1, messages.size, "message not sent?")
 
     val message: MimeMessage = messages[0]
     val content: String = message.content as String
@@ -63,6 +63,6 @@ class AcceptanceTest {
       "localhost",
       NONSTANDARD_PORT
     )
-    assertEquals("what? messages?", 0, mailServer.getReceivedMessagesForDomain("localhost").size)
+    assertEquals(0, mailServer.getReceivedMessagesForDomain("localhost").size, "what? messages?")
   }
 }
